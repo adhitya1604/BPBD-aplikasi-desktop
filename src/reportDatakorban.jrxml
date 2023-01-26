@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     data.`nik` AS data_nik,
+     data.`nama` AS data_nama,
+     data.`umur` AS data_umur,
+     data.`jk` AS data_jk,
+     data.`alamat` AS data_alamat,
+     data.`kondisi` AS data_kondisi
+FROM
+     `data` data]]>
+	</queryString>
+	<field name="data_nik" class="java.lang.Integer"/>
+	<field name="data_nama" class="java.lang.String"/>
+	<field name="data_umur" class="java.lang.String"/>
+	<field name="data_jk" class="java.lang.String"/>
+	<field name="data_alamat" class="java.lang.String"/>
+	<field name="data_kondisi" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="-1" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="68" y="20" width="477" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Gedung Ina DRTG · Jl. Anyar No.37, Tangkil, Kec. Citeureup, Bogor, Jawa Barat 16810]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="40" width="124" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Telp.(021) 29618775]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="-1" width="555" height="80"/>
+				<imageExpression><![CDATA["C:\\Users\\LENOVO\\Downloads\\Logo_BNPB.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_nik}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_umur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_jk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="1" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{data_alamat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[data_nik]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="21" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[data_nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="21" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[data_umur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="21" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[data_jk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="21" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[data_alamat]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="31" splitType="Stretch"/>
+	</summary>
+</jasperReport>

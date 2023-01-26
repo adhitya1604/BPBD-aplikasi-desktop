@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     bencana.`kejadian` AS bencana_kejadian,
+     bencana.`jenis` AS bencana_jenis,
+     bencana.`waktu` AS bencana_waktu,
+     bencana.`keterangan` AS bencana_keterangan,
+     korban.`kejadian` AS korban_kejadian,
+     korban.`posko` AS korban_posko,
+     korban.`nama` AS korban_nama,
+     korban.`umur` AS korban_umur,
+     korban.`jk` AS korban_jk,
+     korban.`alamat` AS korban_alamat,
+     korban.`keterangan` AS korban_keterangan,
+     posko.`posko` AS posko_posko,
+     posko.`lokasi` AS posko_lokasi
+FROM
+     `bencana` bencana INNER JOIN `korban` korban ON bencana.`kejadian` = korban.`kejadian`
+     INNER JOIN `posko` posko ON korban.`posko` = posko.`posko`]]>
+	</queryString>
+	<field name="bencana_kejadian" class="java.lang.String"/>
+	<field name="bencana_jenis" class="java.lang.String"/>
+	<field name="bencana_waktu" class="java.sql.Date"/>
+	<field name="bencana_keterangan" class="java.lang.String"/>
+	<field name="korban_kejadian" class="java.lang.String"/>
+	<field name="korban_posko" class="java.lang.String"/>
+	<field name="korban_nama" class="java.lang.String"/>
+	<field name="korban_umur" class="java.lang.String"/>
+	<field name="korban_jk" class="java.lang.String"/>
+	<field name="korban_alamat" class="java.lang.String"/>
+	<field name="korban_keterangan" class="java.lang.String"/>
+	<field name="posko_posko" class="java.lang.String"/>
+	<field name="posko_lokasi" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

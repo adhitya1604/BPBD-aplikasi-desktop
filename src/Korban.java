@@ -1,0 +1,485 @@
+import java.sql.DriverManager;
+import java.awt.HeadlessException;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author ADHITYAAP
+ */
+public class Korban extends javax.swing.JFrame {
+DefaultTableModel tabModel;
+    /**
+     * Creates new form Korban
+     */
+    public Korban() {
+        initComponents();
+        load_table();
+         setLocationRelativeTo(this);
+       kosong();
+       combo();
+       combo2();
+    }
+    private void cariData(String key){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No");
+        model.addColumn("Kode-Kejadian");
+        model.addColumn("Kode-Posko");
+        model.addColumn("Nama");
+        model.addColumn("Umur");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("Alamat");
+        model.addColumn("Keterangan");
+        //menampilkan data database kedalam tabel
+        try {
+            int no=1;
+            
+            java.sql.Connection conn=(Connection)config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery("SELECT * from korban WHERE kejadian LIKE '%"+key+"%' OR posko LIKE '%"+key+"%' OR nama LIKE '%"+key+"%'");
+            while(res.next()){
+                model.addRow(new Object[]{no++,res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6)});
+            }
+            data.setModel(model);
+        } catch (Exception e) {
+        }
+    }
+private void kosong(){
+        txt_alamat.setText(null);
+        txt_kejadian.setSelectedItem(null);
+        posko.setSelectedItem(null);
+        txt_umur.setText(null); 
+        txt_nama.setText(null);  
+        txt_jk.setSelectedItem(this);
+         txt_keterangan.setText(null);
+    }
+     private void load_table(){
+        // membuat tampilan model tabel
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("No");
+        model.addColumn("Kode-Kejadian");
+        model.addColumn("Kode-Posko");
+        model.addColumn("Nama");
+        model.addColumn("Umur");
+        model.addColumn("Jenis Kelamin");
+        model.addColumn("Alamat");
+        model.addColumn("Keterangan");
+        //menampilkan data database kedalam tabel
+        try {
+            int no=1;
+            String sql = "select * from korban";
+            java.sql.Connection conn=(Connection)config.configDB();
+            java.sql.Statement stm=conn.createStatement();
+            java.sql.ResultSet res=stm.executeQuery(sql);
+            while(res.next()){
+                model.addRow(new Object[]{no++,res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7)});
+            }
+            data.setModel(model);
+        } catch (Exception e) {
+        }}
+     public void combo(){
+         try{
+             String sql= "Select * from bencana";
+             java.sql.Connection conn=(Connection)config.configDB();
+             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery();
+             
+             while(rs.next()){
+                 txt_kejadian.addItem(rs.getString("kejadian"));
+             }
+             rs.last();
+             int jumlahdata = rs.getRow();
+             rs.first();
+         }catch(Exception e){
+             
+         }
+     }
+     public void combo2(){
+         try{
+             String sql= "Select * from posko";
+             java.sql.Connection conn=(Connection)config.configDB();
+             java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery();
+             
+             while(rs.next()){
+                 posko.addItem(rs.getString("posko"));
+             }
+             rs.last();
+             int jumlahdata = rs.getRow();
+             rs.first();
+         }catch(Exception e){
+             
+         }
+     }
+
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        txt_nama = new javax.swing.JTextField();
+        txt_kejadian = new javax.swing.JComboBox<>();
+        posko = new javax.swing.JComboBox<>();
+        txt_umur = new javax.swing.JTextField();
+        txt_jk = new javax.swing.JComboBox<>();
+        txt_alamat = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt_keterangan = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        data = new javax.swing.JTable();
+        pencarian = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton7 = new javax.swing.JButton();
+        dataa = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txt_nama.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        getContentPane().add(txt_nama, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 220, 30));
+
+        txt_kejadian.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txt_kejadian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Kode Kejadian--" }));
+        getContentPane().add(txt_kejadian, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 220, 30));
+
+        posko.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        posko.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Kode Posko --- " }));
+        getContentPane().add(posko, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 220, 30));
+
+        txt_umur.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        getContentPane().add(txt_umur, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 220, 30));
+
+        txt_jk.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txt_jk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Jenis Kelamin ---", "Laki- Laki", "Perempuan" }));
+        getContentPane().add(txt_jk, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 220, 30));
+
+        txt_alamat.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        getContentPane().add(txt_alamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 220, 30));
+
+        txt_keterangan.setColumns(20);
+        txt_keterangan.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txt_keterangan.setRows(5);
+        jScrollPane1.setViewportView(txt_keterangan);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 220, -1));
+
+        jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, -1, 30));
+
+        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton2.setText("EDIT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 520, -1, -1));
+
+        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton3.setText("CLEAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 520, -1, -1));
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton4.setText("DELETE");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 520, -1, -1));
+
+        jButton5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton5.setText("EXIT");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 520, 80, -1));
+
+        data.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dataMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(data);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 440, 360));
+
+        pencarian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pencarianActionPerformed(evt);
+            }
+        });
+        pencarian.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pencarianKeyPressed(evt);
+            }
+        });
+        getContentPane().add(pencarian, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 230, 30));
+
+        jButton6.setText("CARI");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 80, -1, 30));
+
+        jToggleButton1.setText("MENU");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 90, 30));
+
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton7.setText("Cetak");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 540, 90, 30));
+        getContentPane().add(dataa, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 500, 220, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DataKorban.jpg"))); // NOI18N
+        jLabel2.setText("Simpan");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         try {  
+            String sql = "INSERT INTO korban VALUES ('"+txt_kejadian.getSelectedItem()+"','"+posko.getSelectedItem()+"','"+txt_nama.getText()+"','"+txt_umur.getText()+"','"+txt_jk.getSelectedItem()+"','"+txt_alamat.getText()+"','"+txt_keterangan.getText()+"')";
+           java.sql.Connection conn=(Connection)config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            
+            pst.execute();
+            
+             new Korban().setVisible(true);
+             dispose();
+            JOptionPane.showMessageDialog(null, "Penyimpanan Data Berhasil");
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+         combo();
+         combo2();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void dataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataMouseClicked
+        // TODO add your handling code here:
+          int baris = data.rowAtPoint(evt.getPoint());
+         
+        String kejadian = data.getValueAt(baris, 1).toString();
+        txt_kejadian.setSelectedItem(kejadian);
+        String posko1 =data.getValueAt(baris, 2).toString();
+        posko.setSelectedItem(posko1);
+        String nama = data.getValueAt(baris,3).toString();
+        txt_nama.setText(nama);
+        String umur = data.getValueAt(baris,4).toString();
+        txt_umur.setText(umur);
+        String jk = data.getValueAt(baris, 5).toString();
+        txt_jk.setSelectedItem(jk);
+        String alamat=data.getValueAt(baris, 6).toString();
+        txt_alamat.setText(alamat);
+        String keterangan = data.getValueAt(baris, 7).toString();
+        txt_keterangan.setText(keterangan);
+    }//GEN-LAST:event_dataMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String sql ="UPDATE korban SET kejadian = '"+txt_kejadian.getSelectedItem()+"',posko = '"+posko.getSelectedItem()+"',nama = '"+txt_nama.getText()+"',umur = '"+txt_umur.getText()+"',jk = '"+txt_jk.getSelectedItem()+"',alamat= '"+txt_alamat.getText()+"',keterangan= '"+txt_keterangan.getText()+"' WHERE nama = '"+txt_nama.getText()+"'";
+            java.sql.Connection conn=(Connection)config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+            new Korban().setVisible(true);
+             dispose();
+            JOptionPane.showMessageDialog(null, "data berhasil di edit");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Perubahan Data Gagal"+e.getMessage());
+        }
+        load_table();
+        kosong();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try {
+            String sql ="delete from korban where nama='"+txt_nama.getText()+"'";
+            java.sql.Connection conn=(Connection)config.configDB();
+            java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(this, "berhasil di hapus");
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        load_table();
+        kosong();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void pencarianKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pencarianKeyPressed
+        // TODO add your handling code here:
+        String key=pencarian.getText();
+        System.out.println(key);  
+        
+        if(key!=""){
+            cariData(key);
+        }else{
+            load_table();
+        }
+    }//GEN-LAST:event_pencarianKeyPressed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        new LOGIN().setVisible(true);
+             dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        kosong();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+         new menu().setVisible(true);
+         dispose();
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void pencarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pencarianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pencarianActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+            try{
+            String NamaFile = "./src/ok.jasper";
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost/bnbp","root","");
+            HashMap param = new HashMap();
+            //Mengambil parameter
+            param.put("tgll",dataa.getDate());
+                   
+            JasperPrint JPrint = JasperFillManager.fillReport(NamaFile, param, koneksi);
+            JasperViewer.viewReport(JPrint);
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Korban.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Korban.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Korban.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Korban.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Korban().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable data;
+    private com.toedter.calendar.JDateChooser dataa;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField pencarian;
+    private javax.swing.JComboBox<String> posko;
+    private javax.swing.JTextField txt_alamat;
+    private javax.swing.JComboBox<String> txt_jk;
+    private javax.swing.JComboBox<String> txt_kejadian;
+    private javax.swing.JTextArea txt_keterangan;
+    private javax.swing.JTextField txt_nama;
+    private javax.swing.JTextField txt_umur;
+    // End of variables declaration//GEN-END:variables
+}
